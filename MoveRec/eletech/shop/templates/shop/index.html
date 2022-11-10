@@ -1,0 +1,184 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+         <!-- basic -->
+         <meta charset="utf-8">
+         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+         <!-- mobile metas -->
+         <meta name="viewport" content="width=device-width, initial-scale=1">
+         <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+         <!-- site metas -->
+         <title>ELETECH</title>
+         <meta name="keywords" content="">
+         <meta name="description" content="">
+         <meta name="author" content="">
+
+         <!-- bootstrap css -->
+         <link rel="stylesheet" type="text/css" href="{% static '/shop/css/bootstrap.min.css' %}">
+         <!-- style css -->
+         <link rel="stylesheet" type="text/css" href="{% static '/shop/css/style.css' %}">
+         <!-- Responsive-->
+         <link rel="stylesheet" type="text/css" href="{% static '/shop/css/responsive.css' %}">
+         <!-- fevicon -->
+         <link rel="icon" href="{% static '/shop/images/fevicon.png' %}" type="image/gif" />
+         <!-- Scrollbar Custom CSS -->
+         <link rel="stylesheet" type="text/css" href="{% static '/shop/css/jquery.mCustomScrollbar.min.css' %}">
+         <!-- Tweaks for older IEs-->
+         <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+         <!--[if lt IE 9]>
+         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+   </head>
+   <!-- body -->
+   <body class="main-layout">
+      <!-- loader  -->
+      <div class="loader_bg">
+         <div class="loader"><img src="{% static '/shop/images/loading.gif' %}" alt="#" /></div>
+      </div>
+      <!-- end loader -->
+      <!-- header -->
+      <header>
+
+            <!-- end header -->
+            <!-- banner -->
+         <div  class="head_top">
+            <div class="header">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                        <div class="full">
+                           <div class="center-desk">
+                              
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                        <nav class="navigation navbar navbar-expand-md navbar-dark">
+                           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                              <span class="navbar-toggler-icon"></span>
+                           </button>
+                           <div class="collapse navbar-collapse" id="navbarsExample04">
+                              <ul class="navbar-nav mr-auto">
+                                  <li class="nav-item"><a class="nav-link" href="{% url 'eletech-shop' %}">Home</a></li>
+                                  <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+                                  <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                                  <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
+                                  <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+                              </ul>
+                           </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            <section class="banner_main">
+               <div class="container-fluid">
+                  <div class="row d_flex">
+                     <div class="col-md-5">
+                        <div class="text-bg">
+                           <h1>ELETECH <br>Shop</h1>
+                           <strong>Hello {{ user.username }}!</strong>
+                           <span>Find "Your" Product</span>
+                        </div>
+                     </div>
+                     <div class="col-md-7 padding_right1">
+                        <div class="text-img">
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </section>
+
+         </div>
+      </header>
+      <!-- end banner -->
+      <!-- Shop -->
+      <div id="about" class="about">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="titlepage">
+                     <h2>About ELETECH</h2>
+                     <span>Our Solution finds you all of the products according to what you are trying to find. Just try it Out</span>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-8 offset-md-2 ">
+                  <div class="about_box ">
+
+                     <form method="POST" >
+                        {% csrf_token %}
+                        <label for="search">Search a product</label>
+                        <input type="text" name="product_inp" placeholder="Enter Product">
+                        <button for="search" class="searchButton">Search</button>
+                     </form>
+
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Shop -->
+      <!-- best -->
+      <div class="special"> 
+         <div class="container"> 
+            <div class="row"> 
+               <div class="col-md-12"> 
+                  <div class="titlepage"> 
+                     <h2>All Results </h2>
+                  </div>
+               </div>
+            </div>
+
+            <div class="item_container">
+               {% for items in Prices %}
+                  <div class="item_div">
+                     <h1 class="item">
+                        <p class="itemKey" style="display:inline">Category:</p><p class="itemValue" style="display:inline"> {{ items.Category }}</p>
+                        <br>
+                        <p class="itemKey" style="display:inline">Title:</p><p class="itemValue" style="display:inline"> {{ items.Title}}</p>
+                        <br>
+                        <p class="itemKey" style="display:inline">Price:</p><p class="itemValue" style="display:inline"> {{ items.Price }} USD</p>
+                        <br>
+                        <p class="itemKey" style="display:inline">Seller:</p><p class="itemValue" style="display:inline"> {{ items.Seller }}</p>
+                     </h1>
+                     <a class="url" href="{{ items.Url }}">Buy</a>
+                     <br><br>
+                  </div>
+               {% endfor %}
+            </div>
+         </div>
+      </div>
+      <!-- end best -->
+      
+    
+      <!--  footer -->
+      <footer>
+            <div class="copyright">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <p>© 2021 All Rights Reserved. Design by Michael de Smitt and Stefan Arsic</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <!-- end footer -->
+      <!-- Javascript files-->
+      <script src="{% static '/shop/js/jquery.min.js' %}"></script>
+      <script src="{% static '/shop/js/popper.min.js' %}"></script>
+      <script src="{% static '/shop/js/js/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static '/shop/js/js/jquery-3.0.0.min.js' %}"></script>
+      <script src="{% static '/shop/js/plugin.js' %}"></script>
+      <!-- sidebar -->
+      <script src="{% static '/shop/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+      <script src="{% static '/shop/js/custom.js' %}"></script>
+      <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+   </body>
+</html>
+
